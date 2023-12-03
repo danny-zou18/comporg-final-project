@@ -5,11 +5,15 @@ module arch;
     reg reset;
     // Define other necessary testbench signals
     
-    // Instantiate the module under test
-    arch dut (
+    // Instantiate the CPU module
+    CPU dut (
         .clk(clk),
         .reset(reset),
         // Connect other inputs and outputs
+        // Example:
+        .address_bus(...), // Connect appropriate signals from testbench
+        .data_bus_in(...), // Connect appropriate signals from testbench
+        .data_bus_out(...) // Connect appropriate signals from testbench
     );
 
     // Clock generation

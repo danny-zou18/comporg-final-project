@@ -1,41 +1,39 @@
-module SimpleProcessor(
-    input wire clk,        // Clock input
-    input wire rst,        // Reset input
-    input wire [3:0] opcode, // Opcode input
-    input wire [3:0] operandA, // Operand A input
-    input wire [3:0] operandB, // Operand B input
-    output reg [3:0] result // Result output
+`timescale 1ns / 1ps
+
+module alu(
+  input [12:0] A,B,  // ALU 16-bit Inputs
+  input [3:0] ALU_Sel,// ALU Selection
+  output [12:0] ALU_Out // ALU 16-bit Output
 );
 
-// Internal registers
-reg [3:0] regA, regB;
+  reg [12:0] ALU_Result;
+  wire [12:0] tmp;
+    assign ALU_Out = ALU_Result; // ALU out
+    always @(*)
+    begin
+        case(ALU_Sel)
+        4'b0001: // Addition
+           ALU_Result = A + B ;
+        4'b0010: // Subtraction
+           ALU_Result = A - B ;
+        4'b0011: // And
+          	ALU_Result = A & B;
+        4'b0100: // Or
+          	ALU_Result = A | B;
+        4'b0101: // Clear
+           ALU_Result = 0;
+        default: ALU_Result = 0;
+        endcase
+    end
 
-// Control signals
-wire writeEnable; // Signal to enable writing to registers
-
-// ALU (Arithmetic Logic Unit)
-always @(*)
-begin
-    case(opcode)
-        4'b0000: result = regA + regB; // Addition
-        4'b0001: result = regA - regB; // Subtraction
-        4'b0010: result = regA & regB; // Bitwise AND
-        4'b0011: result = regA | regB; // Bitwise OR
-        // Add more operations as needed...
-        default: result = 4'b0000; // Default to 0 if opcode is invalid
-    endcase
-end
+endmodule
 
 // Register File
 always @(posedge clk or posedge rst)
 begin
     if(rst) begin
-        regA <= 4'b0000; // Reset register A
-        regB <= 4'b0000; // Reset register B
-    end
-    else if(writeEnable) begin
-        regA <= operandA; // Load operand A to register A
-        regB <= operandB; // Load operand B to register B
+        A <= 4'b0000; // Reset register A
+        B <= 4'b0000; // Reset register B
     end
 end
 

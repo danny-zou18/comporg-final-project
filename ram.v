@@ -1,8 +1,8 @@
 `timescale 1 ns / 1 ps
 
-module single_port_sync_ram_indirect
+module single_port_sync_ram
   #(
-    parameter ADDR_WIDTH = 12,
+    parameter ADDR_WIDTH = 13,
     parameter DATA_WIDTH = 8,
     parameter LENGTH = (1 << ADDR_WIDTH)
   )

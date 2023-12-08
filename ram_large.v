@@ -1,6 +1,6 @@
 `include "ram.v"
 `include "decoder.v"
-`include "alu.v"
+`include "ALU.v"
 
 `timescale 1 ns / 1 ps
 

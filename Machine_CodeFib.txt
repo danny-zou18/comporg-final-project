@@ -5,7 +5,6 @@ Address  Value  Code
 104     1122   Load    Second  / Load the second number (1) into AC
 106     2124   Store   Next    / Store it as the next number to add
 
-// new
 loop
 108     1124 load next : Load bigger number
 10a     2122 store second : temp holder 
@@ -19,7 +18,6 @@ loop
 11A     9200   Skipcond 400    / If counter is 0, end the loop
 11C     A108  Jump    @LoopAddr    / Jump back to the start of the loop
 11E     FFFF   Halt            / End the program
-// new
 
 120     0000   First,  Dec 0   / The first Fibonacci number
 122     0001   Second, Dec 1   / The second Fibonacci number

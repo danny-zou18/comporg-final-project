@@ -1,7 +1,7 @@
 `timescale 1 ns / 1 ps
 
 module test_ram;
-  parameter ADDR_WIDTH = 13;
+  parameter ADDR_WIDTH = 12;
   parameter DATA_WIDTH = 8;
 
   reg clk;

@@ -72,7 +72,7 @@ end
     @(posedge clk) MAR <= 'h105; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h110E;
     @(posedge clk) MAR <= 'h106; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h310F;
     @(posedge clk) MAR <= 'h107; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h210E;
-    @(posedge clk) MAR <= 'h108; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h8400;
+    
     @(posedge clk) MAR <= 'h109; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h9102;
     
     @(posedge clk) MAR <= 'h10B; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h0005;
@@ -89,8 +89,15 @@ end
           @(posedge clk) MAR <= PC; we <= 0; cs <= 1; oe <= 1;
           @(posedge clk) IR <= data;
           @(posedge clk) PC <= PC + 1;
-          // Decode and execute
-      case(IR[15:12])
+      
+      	// Decode and potentially resolve indirect address
+      	if (IR[11] == 1'b1) begin // Check if indirect addressing
+              @(posedge clk) MAR <= IR[11:0]; // Get the address
+              @(posedge clk) IR <= data; // Fetch the actual data
+      	end
+        
+        // Decode and execute
+        case(IR[15:12])
         4'b0001: begin // Load
               @(posedge clk) MAR <= IR[11:0];
               @(posedge clk) MBR <= data;
@@ -150,6 +157,13 @@ end
         end
         4'b1011: begin // Clear
           @(posedge clk) AC <= 0;
+        end
+        
+        4'b1100: begin // Multiply
+        	  @(posedge clk) MAR <= IR[11:0];
+              @(posedge clk) MBR <= data;
+              @(posedge clk) ALU_Sel <= 'b0111; A <= AC; B <= MBR;
+              @(posedge clk) AC <= ALU_Out;
         end
         4'b1111: begin // Halt
           @(posedge clk) halt_flag <= 1;

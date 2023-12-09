@@ -9,14 +9,12 @@ module test_ram;
   reg we;
   reg oe;
   reg [ADDR_WIDTH-1:0] addr;
-  reg [ADDR_WIDTH-1:0] indirect_addr;
   wire [DATA_WIDTH-1:0] data;
   reg [DATA_WIDTH-1:0] testbench_data;
 
   single_port_sync_ram #(.DATA_WIDTH(DATA_WIDTH)) u0
   (   .clk(clk),
       .addr(addr),
-   	  .indirect_addr(indirect_addr),
       .data(data),
       .cs(cs),
       .we(we),
@@ -30,7 +28,7 @@ module test_ram;
   initial begin
     $dumpfile("dump.vcd");
     $dumpvars;
-    {clk, cs, we, addr, indirect_addr, testbench_data, oe} <= 0;
+    {clk, cs, we, addr, testbench_data, oe} <= 0;
 
     repeat (2) @ (posedge clk);
 

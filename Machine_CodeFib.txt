@@ -3,25 +3,28 @@ Address  Value  Code
 100     1120   Load    First   / Load the first number (0) into AC
 102     212A   Store   Fibo    / Store it in the Fibonacci result
 104     1122   Load    Second  / Load the second number (1) into AC
-106     2123   Store   Next    / Store it as the next number to add
-108     312A   Add     Fibo    / Add the last Fibonacci number
-10A     212A   Store   Fibo    / Store the new Fibonacci number
-10C     1124   Load    Next    / Load the next number
-10E     2122   Store   Second  / Move the next number to second place
-110     112A   Load    Fibo    / Load the new Fibonacci number
-112     2124   Store   Next    / Store it as the next number
+106     2124   Store   Next    / Store it as the next number to add
+
+// new
+loop
+108     1124 load next : Load bigger number
+10a     2122 store second : temp holder 
+10c     312a add Fibo : AC = next number
+10e     2124 store next : store in next
+110     1122 load second : load temp
+112     212a store fibo : store in fibo
 114     1126   Load    Counter / Load the loop counter
 116     3128   Add     DecOne  / Decrement the counter
 118     2126   Store   Counter / Store the new counter value
 11A     9200   Skipcond 400    / If counter is 0, end the loop
-11C     A1102  Jump    @LoopAddr    / Jump back to the start of the loop
-11E     7000   Halt            / End the program
-
+11C     A108  Jump    @LoopAddr    / Jump back to the start of the loop
+11E     FFFF   Halt            / End the program
+// new
 
 120     0000   First,  Dec 0   / The first Fibonacci number
 122     0001   Second, Dec 1   / The second Fibonacci number
 124     0001   Next,   Dec 1   / The next Fibonacci number initially set to the same as Second
 126     000A   Counter,Dec 10  / Loop counter, for 10 iterations (since we already have the first two numbers)
-128     FFFF   DecOne, Dec -1  / Used for decrementing the counter
+128     0FFF   DecOne, Dec -1  / Used for decrementing the counter
 12A     0000   Fibo,   Hex 0   / Fibonacci number storage
 12C     0103   LoopAddr, Hex 103 / Address of the start of the loop

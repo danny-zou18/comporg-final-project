@@ -96,7 +96,7 @@ end
               @(posedge clk) MBR <= data;
               @(posedge clk) AC <= MBR;
         end 
-		4'b0010: begin // Store
+		    4'b0010: begin // Store
               @(posedge clk) MAR <= IR[11:0];
               @(posedge clk) MBR <= AC;
               @(posedge clk) we <= 1; oe <= 0; testbench_data <= MBR;      
@@ -127,7 +127,7 @@ end
               @(posedge clk) ALU_Sel <= 'b0100; A <= AC; B <= MBR;
               @(posedge clk) AC <= ALU_Out;
         end
-        4'b0111: begin // Not
+        4'b1111: begin // Not
               @(posedge clk) MAR <= IR[11:0];
               @(posedge clk) MBR <= data;
           	  @(posedge clk) ALU_Sel <= 'b0101; A <= AC; B <= MBR;
@@ -151,7 +151,7 @@ end
         4'b1011: begin // Clear
           @(posedge clk) AC <= 0;
         end
-        4'b1111: begin // Halt
+        4'b1110: begin // Halt
           @(posedge clk) halt_flag <= 1;
         end
       endcase

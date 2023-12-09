@@ -5,7 +5,7 @@ module test_cpu;
   parameter DATA_WIDTH = 16;
   
   reg osc;
-  localparam period = 10;
+  localparam period = 21;
 
   wire clk; 
   assign clk = osc; 

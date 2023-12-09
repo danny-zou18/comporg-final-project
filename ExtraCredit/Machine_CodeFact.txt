@@ -1,0 +1,25 @@
+Address   Value     Code
+100       1126          Load        N
+102       9400          Skipcond    400
+104       A10C          Jump        Factorial
+106       112C          Load        Neg1
+108       2128          Store       Result
+10A       A124          Jump        End
+10C       1126       Factorial, Load   N
+10E       212A          Store      Ctr
+110       112C          Load       Neg1
+112       2128          Store      Result
+114       1128       Loop,      Load   Result
+116       712A          Mult       Ctr
+118       2128          Store      Result
+11A       112A          Load       Ctr
+11C       312C          Add        Neg1
+11E       212A          Store      Ctr
+120       9400          Skipcond   400
+122       A114          Jump       Loop
+124       7000       End,       Halt
+126       0003      N,       Dec 3
+128       0000      Result,  Hex 0
+12A       0000      Ctr,     Hex 0
+12C       FFFF      Neg1,    Dec -1
+
